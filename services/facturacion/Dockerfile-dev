@@ -1,6 +1,13 @@
 # se basa en una imagen
 FROM python:3.7.0-alpine
 
+# nuevo
+# instalando dependencias
+RUN apk update && \
+    apk add --virtual build-deps gcc python-dev musl-dev && \
+    apk add postgresql-dev && \
+    apk add netcat-openbsd
+
 # establecemos el directorio de trabajo
 WORKDIR /fact/src/app
 
@@ -8,8 +15,15 @@ WORKDIR /fact/src/app
 COPY ./requirements.txt /fact/src/app/requirements.txt
 RUN pip install -r requirements.txt
 
+# nuevo
+# copiando entrypoint.sh
+COPY ./entrypoint.sh /fact/src/app/entrypoint.sh
+RUN chmod +x /fact/src/app/entrypoint.sh
+
 # copiamos app
 COPY . /fact/src/app
 
-# run server
-CMD python manage.py run -h 0.0.0.0
+# nuevo
+# ejecutando servidor
+# CMD python manage.py run -h 0.0.0.0
+CMD ["/fact/src/app/entrypoint.sh"]

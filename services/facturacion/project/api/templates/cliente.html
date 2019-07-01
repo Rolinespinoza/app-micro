@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Flask on Docker</title>
+    <!-- meta -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!-- styles -->
+    <link
+      href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    {% block css %}{% endblock %}
+  </head>
+  <body style="background-color:#c8d6e5;"> 
+
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="https://bulma.io">
+          <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+        </a>
+
+        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div> -->
+
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item">
+            Home
+          </a>
+
+          <a class="navbar-item">
+            Documentation
+          </a>
+
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              More
+            </a>
+
+            <div class="navbar-dropdown">
+              <a class="navbar-item">
+                About
+              </a>
+              <a class="navbar-item">
+                Jobs
+              </a>
+              <a class="navbar-item">
+                Contact
+              </a>
+              <hr class="navbar-divider">
+              <a class="navbar-item">
+                Report an issue
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </nav>
+    <!-- Inicio del campo principal  -->
+    <div class="container">
+        <div class="row"> 
+            <div class="col-md-4">
+                    <!-- <div class="column is-one-third"> -->
+                            <br>
+                            <h1 class="title">Nuevo Cliente</h1>
+                            <hr><br>
+                            <form action="/clientes" method="POST" style="width: 300px;">
+                              <div class="field">
+                                <input
+                                  name="nombres" class="input"
+                                  type="text" placeholder="Ingrese nombres" required>
+                              </div>
+                              <div class="field">
+                                <input
+                                  name="apellidos" class="input"
+                                  type="text" placeholder="Ingrese apellidos " required>
+                              </div>
+                              <div class="field">
+                                <input
+                                  name="telefono" class="input"
+                                  type="number" placeholder="Ingrese telefono" required>
+                              </div>
+                              <div class="field">
+                                    <input
+                                      name="email" class="input"
+                                      type="text" placeholder="Ingrese email" required>
+                                  </div>
+                              <input
+                                type="submit" class="button is-link is-fullwidth"
+                                value="Registrar">
+                            </form>
+                            <br>
+                            <hr>
+                            <!-- </div> -->
+            </div>
+            <div class="col-md-8" style="margin-top: 60px;">
+                     <!-- Inicio de la tabla  -->
+            <table class="table table-striped table-hover table-bordered table-sm bg-white">
+              <thead>
+                <tr>
+                  <td>ID</td>
+                  <td>Nombres</td>
+                  <td>Apellidos</td>
+                  <td>Celular</td>
+                  <td>Correo</td>
+                  <td>Estado</td>
+                  <td>Operaciones</td>
+                </tr>
+              </thead>
+              <tbody>
+                {% for c in clientes %}
+                <tr>
+                  <td>{{c.idclientes}}</td>
+                  <td>{{c.nombres}}</td>
+                  <td>{{c.apellidos}}</td>
+                  <td>{{c.telefono}}</td>
+                  <td>{{c.email}}</td>
+                  <td>{{c.estado}}</td>
+                  <td>
+                    <a href="/edit/{{c.idclientes}}" class="btn btn-secondary">Editar</a>
+                    <a href="/delete/{{c.idclientes}}" class="btn btn-danger btn-delete">Eliminar</a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+         
+          <!-- fin de la tabla  -->
+                </div>
+        </div>
+      
+      </div>
+
+     
+    </div>
+    </script>
+    {% block js %}{% endblock %}
+  </body>
+</html>
